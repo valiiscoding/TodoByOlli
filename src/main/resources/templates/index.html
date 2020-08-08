@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shorty</title>
+    <link href="../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
+          th:href="'node_modules/bootstrap/dist/css/bootstrap.min.css'">
+</head>
+<body>
+<div class="container pt-3">
+    <h1 style="font-weight: bold" class="text-center">
+        Fetch Todo-Lists
+    </h1>
+
+    <div>
+        <form action="/fetch" method="post">
+            <div class="row justify-content-center " th:if="${todos.size()==0}">
+                <input class="btn btn-primary" type="submit" value="FETCH">
+            </div>
+        </form>
+    </div>
+
+    <p></p>
+
+    <div id="links" th:if="${todos}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Title</th>
+                <th>Completed</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${todos}">
+                <td>
+              <span th:text="${l.username}">
+                hhu
+              </span>
+                </td>
+                <td>
+              <span th:text="${l.title}">
+                https://hhu.de
+              </span>
+                </td>
+                <td>
+
+              <span th:text="${l.completed}? 'COMPLETED': 'NOT FINISHED'"
+                    th:classappend="${l.completed} ? 'text-success':'text-danger'">
+              </span>
+
+                    <form action="/finished" method="post" th:if="${l.completed==false}">
+                        <input type="hidden" name="todo_id" th:value="${l.id}">
+                        <button type="submit" class="btn btn-primary" value="Finished"></button>
+
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script src="../static/node_modules/jquery/dist/jquery.min.js"
+        th:src="'node_modules/jquery/dist/jquery.min.js'"></script>
+<script src="../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+        th:src="'node_modules/bootstrap/dist/js/bootstrap.min.js'"></script>
+</html>
